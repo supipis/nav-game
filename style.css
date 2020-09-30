@@ -1,0 +1,28 @@
+.box {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    border: 1px solid black;
+}
+
+.hat {
+    background: yellow;
+    background-image: url('carrot.jpg');
+    background-size: cover;
+}
+
+.hole {
+    
+    background-image: url('hole.png');
+    background-size: cover;
+}
+
+.field {
+    background-image: url('gras.png');
+    background-size: cover;
+}
+
+.path {
+    background-image: url('bunny.jpg');
+    background-size: cover;
+}
