@@ -1,6 +1,6 @@
 .box {
     width: 50px;
-    height: 50px;
+    min-height: 50px;
     display: inline-block;
     border: 1px solid black;
 }
@@ -25,4 +25,35 @@
 .path {
     background-image: url('bunny.jpg');
     background-size: cover;
+}
+
+button {
+    background-color: rgb(172, 170, 30);
+    font-size: 20px;
+    border-radius: 12px;
+    padding: 10px 24px;
+}
+
+#input-container .button1{
+    margin-left: 31%;
+    margin-top: 2%;
+}
+
+#input-container .LR{
+    margin-top: 1%;
+}
+
+#input-container .LR .button2 {
+    margin-left: 22%;
+}
+
+#input-container .LR .button3{
+    margin-left: 5%;
+    padding: 10px 18px;
+}
+
+#input-container .button4{
+    margin-left: 30%;
+    margin-top: 1%;
+    padding: 10px 18px;
 }

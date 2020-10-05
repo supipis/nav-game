@@ -1,7 +1,7 @@
-const hat = '<span class="box hat">r</span>'; //initializing 4 main const variables.
-const hole = '<span class="box hole">x</span>';
-const fieldCharacter = '<span class="box field">p</span>';
-const pathCharacter = '<span class="box path">*</span>';
+const hat = '<span class="box hat"></span>'; //initializing 4 main const variables.
+const hole = '<span class="box hole"></span>';
+const fieldCharacter = '<span class="box field"></span>';
+const pathCharacter = '<span class="box path"></span>';
 
 function showMessage(msg){
     //document.getElementById('game-messages').innerHTML = msg;
@@ -16,6 +16,7 @@ class Field { //declare a class
     // Set the "home" position before the game starts
     this.field[0][0] = pathCharacter; //character will be displayed in (0,0) when the game starts
     this.playing = true; 
+    this.print();
   }
  
 
@@ -75,7 +76,7 @@ class Field { //declare a class
     return this.field[this.locationY][this.locationX] === hole; //initializing hat inside the field
   }
 
-  print() { //initializing  the game map
+  print() { //initializing  the game field
     const displayString = this.field.map(row => {
         return row.join('');
       }).join('<br/>');
@@ -106,20 +107,20 @@ class Field { //declare a class
   }
 }
 
-const myfield = new Field(Field.generateField(10, 10, 0.2)); //adding the new location of the character
-myfield.print();
+let currentGame;
 
-function restartGame() {
-  myfield = new Field(Field.generateField(10, 10, 0.2)); 
+function startGame() {
+  currentGame = new Field(Field.generateField(10, 10, 0.2)); 
 }
 
+
 function move(direction){ //calling the move function of the arrow keys
-  myfield.move(direction);
+  currentGame.move(direction);
 }
 
 document.addEventListener('keydown', function(e){ //adding the keyboard arrow keys 
   let keyMap = {
-    37: 'L',
+    37: 'L', 
     38: 'U',
     39: 'R',
     40: 'D'
@@ -128,4 +129,8 @@ document.addEventListener('keydown', function(e){ //adding the keyboard arrow ke
   if (direction != undefined){
     move(direction);
   }
+});
+
+window.addEventListener('load', function() {
+  startGame();
 });
