@@ -1,7 +1,9 @@
 const hat = '<span class="box hat"></span>'; //initializing 4 main const variables.
 const hole = '<span class="box hole"></span>';
 const fieldCharacter = '<span class="box field"></span>';
-const pathCharacter = '<span class="box path"></span>';
+const myMusicCrunch;
+const myMusicFail;
+const myMusicWinner;
 
 function showMessage(msg){
     //document.getElementById('game-messages').innerHTML = msg;
@@ -26,10 +28,12 @@ class Field { //declare a class
       this.playing = false;
     } else if (this.isHole()) {
       showMessage('Sorry, you fell down a hole!');
+      myMusicFail.play();
       this.playing = false;
     } else if (this.isHat()) {
       showMessage('Congrats, the bunny found the carrot!');
       this.playing = false;
+      myMusicWinner.play();
     }
     // Update the current location on the map
     this.field[this.locationY][this.locationX] = pathCharacter;
@@ -83,7 +87,7 @@ class Field { //declare a class
     document.getElementById('game-container').innerHTML = (displayString);
   }
 
-  //starting the game
+ 
   static generateField(height, width, percentage = 0.1) { //displaying the field (probability % of getting a hole 10%)
     const field = new Array(height).fill(0).map(el => new Array(width)); //randomizing the holes when the new game starts
     for (let y = 0; y < height; y++) {
@@ -111,6 +115,9 @@ let currentGame;
 
 function startGame() {
   currentGame = new Field(Field.generateField(10, 10, 0.2)); 
+  myMusicCrunch = new music("crunch.mp3");
+  myMusicFail = new music("fail.mp3");
+  myMusicWinner = new music("winner.mp3");
 }
 
 
@@ -134,3 +141,18 @@ document.addEventListener('keydown', function(e){ //adding the keyboard arrow ke
 window.addEventListener('load', function() {
   startGame();
 });
+
+function music(src) {
+  this.music = document.createElement("audio");
+  this.music.src = src;
+  this.music.setAttribute("preload", "auto");
+  this.music.setAttribute("controls", "none");
+  this.music.style.display = "none";
+  document.body.appendChild(this.music);
+  this.play = function(){
+      this.music.play();
+  }
+  this.stop = function(){
+      this.music.pause();
+  }    
+}
