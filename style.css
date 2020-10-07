@@ -1,8 +1,12 @@
+.row {
+    display: flex;
+}
+
 .box {
     width: 50px;
     min-height: 50px;
     display: inline-block;
-    border: 1px solid black;
+    border: 1px solid rgb(213, 213, 213);
 }
 
 .hat {
@@ -57,3 +61,6 @@ button {
     margin-top: 1%;
     padding: 10px 18px;
 }
+
+
+

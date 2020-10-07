@@ -1,13 +1,14 @@
 const hat = '<span class="box hat"></span>'; //initializing 4 main const variables.
 const hole = '<span class="box hole"></span>';
 const fieldCharacter = '<span class="box field"></span>';
-const myMusicCrunch;
-const myMusicFail;
-const myMusicWinner;
+const pathCharacter = '<span class="box path"></span>';
+let myMusicCrunch;
+let myMusicFail;
+let myMusicWinner;
 
 function showMessage(msg){
-    //document.getElementById('game-messages').innerHTML = msg;
-    alert(msg)
+    document.getElementById('game-messages').innerHTML = msg;
+    //alert(msg)
 }
 
 class Field { //declare a class
@@ -26,21 +27,24 @@ class Field { //declare a class
     if (!this.isInBounds()) {
       showMessage('Out of bounds. Please try again!');
       this.playing = false;
+      startGame();
     } else if (this.isHole()) {
-      showMessage('Sorry, you fell down a hole!');
+      showMessage('Oops, you fell down a hole!');
       myMusicFail.play();
+      startGame();
       this.playing = false;
     } else if (this.isHat()) {
       showMessage('Congrats, the bunny found the carrot!');
       this.playing = false;
       myMusicWinner.play();
+      startGame();
     }
     // Update the current location on the map
     this.field[this.locationY][this.locationX] = pathCharacter;
   }
 
-  move(answer){
-    switch (answer) { // assigning keys depending on the starting point(0,0)
+  move(direction){
+    switch (direction) { // assigning keys depending on the starting point(0,0)
       case 'U': //UP key
         this.locationY -= 1;
         break;
@@ -54,13 +58,13 @@ class Field { //declare a class
         this.locationX += 1;
         break;
       default:
-        //showMessage('Enter U, D, L or R.');
-        //this.askQuestion();
+        
         break;
     }
     this.updateLocation(); //the location updates when user press a key 
     //(this.field[this.locationY][this.locationX] = pathCharacter;)
     this.print(); //the field boxes fill when the key moves
+    myMusicCrunch.play();
   }
 
   isInBounds() { //declaring the out of bound limits 
@@ -77,13 +81,13 @@ class Field { //declare a class
   }
 
   isHole() {
-    return this.field[this.locationY][this.locationX] === hole; //initializing hat inside the field
+    return this.field[this.locationY][this.locationX] === hole; //initializing holes inside the field
   }
 
-  print() { //initializing  the game field
-    const displayString = this.field.map(row => {
-        return row.join('');
-      }).join('<br/>');
+  print() { //initializing  the game field(drawing boxes)
+    const displayString = '<div class="row">' + this.field.map(cell => {
+      return cell.join('');
+    }).join('</div><div class="row">') + "</div>";
     document.getElementById('game-container').innerHTML = (displayString);
   }
 
