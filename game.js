@@ -1,7 +1,17 @@
-const hat = '<span class="box hat"></span>'; //initializing 4 main const variables.
-const hole = '<span class="box hole"></span>';
-const fieldCharacter = '<span class="box field"></span>';
-const pathCharacter = '<span class="box path"></span>';
+const hat = 'H'; //initializing 4 main const variables.
+const hole = 'HO';
+const fieldCharacter = 'F';
+const pathCharacter = 'P';
+const lastPathChar = 'LP';
+const fallenHoleChar = 'FH';
+const tileMap = {
+  "H": '<span class="box hat"></span>',
+  "HO": '<span class="box hole"></span>',
+  "F": '<span class="box field"></span>',
+  "P": '<span class="box path"></span>',
+  "LP": '<span class="box path last"></span>',
+  "FH": '<span class="box hole fallen"></span>',
+}
 let myMusicCrunch;
 let myMusicFail;
 let myMusicWinner;
@@ -19,7 +29,7 @@ class Field { //declare a class
     // Set the "home" position before the game starts
     this.field[0][0] = pathCharacter; //character will be displayed in (0,0) when the game starts
     this.playing = true; 
-    this.print();
+    this.printBoard();
   }
  
 
@@ -31,8 +41,10 @@ class Field { //declare a class
     } else if (this.isHole()) {
       showMessage('Oops, you fell down a hole!');
       myMusicFail.play();
+      this.field[this.locationY][this.locationX] = fallenHoleChar;
       startGame();
       this.playing = false;
+      return;
     } else if (this.isHat()) {
       showMessage('Congrats, the bunny found the carrot!');
       this.playing = false;
@@ -63,7 +75,7 @@ class Field { //declare a class
     }
     this.updateLocation(); //the location updates when user press a key 
     //(this.field[this.locationY][this.locationX] = pathCharacter;)
-    this.print(); //the field boxes fill when the key moves
+    this.printBoard(); //the field boxes fill when the key moves
     myMusicCrunch.play();
   }
 
@@ -84,9 +96,15 @@ class Field { //declare a class
     return this.field[this.locationY][this.locationX] === hole; //initializing holes inside the field
   }
 
-  print() { //initializing  the game field(drawing boxes)
-    const displayString = '<div class="row">' + this.field.map(cell => {
-      return cell.join('');
+  printBoard() { //initializing  the game field(drawing boxes)
+    const displayString = '<div class="row">' + this.field.map((cell, y) => {
+      return cell.map((c, x) => {
+        if(this.locationY == y && this.locationX == x){
+          return tileMap["LP"];
+        }else{
+          return tileMap[c];
+        }
+      }).join('');
     }).join('</div><div class="row">') + "</div>";
     document.getElementById('game-container').innerHTML = (displayString);
   }
@@ -122,6 +140,7 @@ function startGame() {
   myMusicCrunch = new music("crunch.mp3");
   myMusicFail = new music("fail.mp3");
   myMusicWinner = new music("winner.mp3");
+  printBoard();
 }
 
 
