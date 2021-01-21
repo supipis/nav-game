@@ -1,35 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navigation game</title>
     <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Play&display=swap" rel="stylesheet">
-
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="game">
-        <h1>Navigation Game</h1>
-        <h3>Help the bunny to find the carrot.</h3>
-        <div class="game-field">
-    <div id="game-container">
-        <!-- game display goes here. -->
-    </div>
-</div>
-    <div id="game-messages">
+        <div id="mute">
+            <button id="btn" onclick="toggleMute();"><i id="#btn-icon" class="fas fa-volume-mute"></i></button>
+        </div>
 
+        <h1>Hungry Bunny </h1>
+        <div class="game-field">
+            <div id="game-container">
+                <!-- game display goes here. -->
+            </div>
+        </div>
+        <div id="game-messages">
+
+        </div>
+        <div id="input-container">
+            <!-- inputs go here. -->
+            <button class="button1" onclick="move('U')">Up</button>
+            <div class="LR">
+                <button class="button2" onclick="move('L')">Left</button>
+                <button class="button3" onclick="move('R')">Right</button>
+            </div>
+            <button class="button4" onclick="move('D')">Down</button>
+        </div>
     </div>
-    <div id="input-container">
-        <!-- inputs go here. -->
-        <button class="button1" onclick="move('U')">Up</button>
-        <div class= "LR">
-        <button class="button2" onclick="move('L')">Left</button>
-        <button class="button3" onclick="move('R')">Right</button>
-    </div>
-        <button class="button4" onclick="move('D')" >Down</button>
-    </div>
-</div>
-    <script src="game.js"></script> 
+    <script src="game.js"></script>
 </body>
+
 </html>

@@ -7,19 +7,17 @@
     min-height: 50px;
     display: inline-block;
     border: 1px solid rgb(213, 213, 213);
-    
 }
 
 @keyframes bounceIn {
     0% {
-      opacity: .5;
+        opacity: .5;
     }
     60% {
-      opacity: 1;
+        opacity: 1;
     }
-    100% {
-    }
-  }
+    100% {}
+}
 
 .hat {
     background-image: url('carrot.jpg');
@@ -27,8 +25,6 @@
 }
 
 .hole {
-
-
     background-image: url('hole.png');
     background-size: cover;
 }
@@ -50,15 +46,15 @@
 
 @keyframes bounceInFall {
     0% {
-      transform: scale(0.1);
-      opacity: 0;
+        transform: scale(0.1);
+        opacity: 0;
     }
     60% {
-      transform: scale(1.2);
-      opacity: 1;
+        transform: scale(1.2);
+        opacity: 1;
     }
     100% {
-      transform: scale(1);
+        transform: scale(1);
     }
 }
 
@@ -77,34 +73,34 @@ button {
     color: rgb(185, 74, 74);
 }
 
-#input-container .button1{
+#input-container .button1 {
     justify-content: center;
     margin-top: 2%;
 }
 
-#input-container .LR{
+#input-container .LR {
     margin-top: 1%;
     margin-bottom: 1%;
     justify-content: center;
 }
 
-#input-container .LR .button3{
-   padding: 10px 18px;
+#input-container .LR .button3 {
+    padding: 10px 18px;
 }
 
-#input-container .button4{
+#input-container .button4 {
     justify-content: center;
     padding: 10px 18px;
 }
 
-.game{
+.game, #game-intro {
     text-align: center;
     border-radius: 12px;
     padding: 1em;
-    background-image: linear-gradient(rgb(228, 187, 228),rgb(101, 161, 101));
+    background-image: linear-gradient(rgb(228, 187, 228), rgb(101, 161, 101));
 }
 
-#game-messages{
+#game-messages {
     font-size: 25px;
     color: rgb(184, 33, 33);
     text-align: center;
@@ -113,17 +109,110 @@ button {
     font-family: 'Play', sans-serif;
 }
 
-h1, h3{
+h1, h3 {
     text-align: center;
     font-family: 'Black Ops One', cursive;
     color: rgb(185, 74, 74);
 }
 
-.game-field{
+.game-field {
     text-align: center;
     width: 100%;
 }
 
 #game-container {
     display: inline-block;
-} 
+}
+
+#game-intro p {
+    font-size: 25px;
+    font-family: 'Play', sans-serif;
+    color: rgb(6, 87, 6);
+}
+
+#good-luck {
+    color: rgb(185, 74, 74);
+    font-size: 25px;
+    font-family: 'Play', sans-serif;
+    overflow: hidden;
+    /* Ensures the content is not revealed until the animation */
+    white-space: nowrap;
+    /* Keeps the content on a single line */
+    margin: 0 auto;
+    /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .1em;
+    /* Adjust as needed */
+    animation: typing 3.5s steps(30, end), blink-caret .5s step-end infinite;
+}
+
+/* The typing effect */
+
+@keyframes typing {
+    from {
+        width: 0
+    }
+    to {
+        width: 100%
+    }
+}
+
+#button {
+    background: rgb(230, 175, 175);
+    border-radius: 12px;
+    font-size: 1.5em;
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: .2em;
+    padding: 5px 15px;
+}
+
+a {
+    display: block;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    color: rgb(184, 33, 33);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+a:hover {
+    color: red;
+    background: rgb(238, 168, 168);
+}
+
+.twist {
+    animation: pulse 5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        color: rgb(6, 87, 6);
+    }
+    50% {
+        color: rgb(185, 74, 74);
+    }
+    100% {
+        color: rgb(6, 87, 6);
+    }
+}
+
+.footer-text {
+    text-align: left;
+    color: rgb(6, 87, 6);
+}
+
+#btn {
+    background: transparent;
+    color: rgb(192, 42, 42);
+    padding: 12px 16px;
+    font-size: 25px;
+    cursor: pointer;
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+    text-shadow: 0px 0px 0px transparent;
+    position: absolute;
+    left: 0;
+}

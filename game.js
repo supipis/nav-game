@@ -15,10 +15,39 @@ const tileMap = {
 let myMusicCrunch;
 let myMusicFail;
 let myMusicWinner;
+let muteButton = document.querySelector("#btn");
 
-function showMessage(msg){
-    document.getElementById('game-messages').innerHTML = msg;
-    //alert(msg)
+muteButton.addEventListener("click", mute);
+
+let musicEnabled = false;
+
+function toggleMute() {
+  musicEnabled = !musicEnabled;
+  const iconLabel = document.getElementById('#btn-icon');
+
+  iconLabel.classList.remove('fa-volume-up')
+  iconLabel.classList.remove('fa-volume-mute')
+
+  if (musicEnabled) {
+    iconLabel.classList.add('fa-volume-up')
+  } else {
+    iconLabel.classList.add('fa-volume-mute')
+  }
+
+}
+
+function mute(src) {
+  myMusicCrunch.pause();
+  myMusicFail.pause();
+  myMusicWinner.pause();
+  musicEnabled = false;
+}
+
+
+
+function showMessage(msg) {
+  document.getElementById('game-messages').innerHTML = msg;
+  //alert(msg)
 }
 
 class Field { //declare a class
@@ -28,12 +57,12 @@ class Field { //declare a class
     this.locationY = 0;
     // Set the "home" position before the game starts
     this.field[0][0] = pathCharacter; //character will be displayed in (0,0) when the game starts
-    this.playing = true; 
+    this.playing = true;
     this.printBoard();
   }
- 
 
-  updateLocation(){ //messages according to the keys)
+
+  updateLocation() { //messages according to the keys)
     if (!this.isInBounds()) {
       showMessage('Out of bounds. Please try again!');
       this.playing = false;
@@ -55,7 +84,7 @@ class Field { //declare a class
     this.field[this.locationY][this.locationX] = pathCharacter;
   }
 
-  move(direction){
+  move(direction) {
     switch (direction) { // assigning keys depending on the starting point(0,0)
       case 'U': //UP key
         this.locationY -= 1;
@@ -70,7 +99,7 @@ class Field { //declare a class
         this.locationX += 1;
         break;
       default:
-        
+
         break;
     }
     this.updateLocation(); //the location updates when user press a key 
@@ -99,9 +128,9 @@ class Field { //declare a class
   printBoard() { //initializing  the game field(drawing boxes)
     const displayString = '<div class="row">' + this.field.map((cell, y) => {
       return cell.map((c, x) => {
-        if(this.locationY == y && this.locationX == x){
+        if (this.locationY == y && this.locationX == x) {
           return tileMap["LP"];
-        }else{
+        } else {
           return tileMap[c];
         }
       }).join('');
@@ -109,7 +138,7 @@ class Field { //declare a class
     document.getElementById('game-container').innerHTML = (displayString);
   }
 
- 
+
   static generateField(height, width, percentage = 0.1) { //displaying the field (probability % of getting a hole 10%)
     const field = new Array(height).fill(0).map(el => new Array(width)); //randomizing the holes when the new game starts
     for (let y = 0; y < height; y++) {
@@ -136,7 +165,7 @@ class Field { //declare a class
 let currentGame;
 
 function startGame() {
-  currentGame = new Field(Field.generateField(10, 10, 0.2)); 
+  currentGame = new Field(Field.generateField(10, 10, 0.2));
   myMusicCrunch = new music("crunch.mp3");
   myMusicFail = new music("fail.mp3");
   myMusicWinner = new music("winner.mp3");
@@ -144,24 +173,24 @@ function startGame() {
 }
 
 
-function move(direction){ //calling the move function of the arrow keys
+function move(direction) { //calling the move function of the arrow keys
   currentGame.move(direction);
 }
 
-document.addEventListener('keydown', function(e){ //adding the keyboard arrow keys 
+document.addEventListener('keydown', function (e) { //adding the keyboard arrow keys 
   let keyMap = {
-    37: 'L', 
+    37: 'L',
     38: 'U',
     39: 'R',
     40: 'D'
   };
   let direction = keyMap[e.keyCode];
-  if (direction != undefined){
+  if (direction != undefined) {
     move(direction);
   }
 });
 
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
   startGame();
 });
 
@@ -172,10 +201,12 @@ function music(src) {
   this.music.setAttribute("controls", "none");
   this.music.style.display = "none";
   document.body.appendChild(this.music);
-  this.play = function(){
+  this.play = function () {
+    if (musicEnabled) {
       this.music.play();
+    }
   }
-  this.stop = function(){
-      this.music.pause();
-  }    
+  this.stop = function () {
+    this.music.stop();
+  }
 }
